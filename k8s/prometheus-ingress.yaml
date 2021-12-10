@@ -10,7 +10,7 @@ spec:
       port:
         number: 9090
   rules:
-    - host: "alertmanager.example.com"
+    - host: alertmanager.192.168.56.10.nip.io
       http:
         paths:
           - pathType: Prefix
@@ -21,7 +21,7 @@ spec:
                 port:
                   number: 9093
 
-    - host: "prometheus.example.com"
+    - host: prometheus.192.168.56.10.nip.io
       http:
         paths:
           - pathType: Prefix
@@ -38,16 +38,4 @@ spec:
                 name: prometheus-service
                 port:
                   number: 9090
-
-    - host: "grafana.example.com"
-      http:
-        paths:
-          - pathType: Prefix
-            path: /
-            backend:
-              service:
-                name: grafana-service
-                port:
-                  number: 3000
-
   ingressClassName: nginx
