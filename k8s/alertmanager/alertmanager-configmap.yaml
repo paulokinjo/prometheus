@@ -22,11 +22,14 @@ data:
     receivers:
       - name: alert-emailer
         email_configs:
-          - to: paulokinjo@hotmail.com
-            send_resolved: false
-            from: from-email@email.com
-            smarthost: smtp.example.com:25
-            require_tls: false      
+          - to: paulokinjo89@gmail.com
+            send_resolved: true
+            from: alertmanager@email.com
+            smarthost: smtp.gmail.com:465
+            require_tls: true
+            auth_username: "$GMAIL_ACCOUNT"
+            auth_identity: "$GMAIL_ACCOUNT"
+            auth_password: "$GMAIL_AUTH_TOKEN"
       - name: slack_demo
         slack_configs:
         - api_url: https://hooks.slack.com/services/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sz4Qk
