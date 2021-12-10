@@ -3,23 +3,27 @@ kind: Deployment
 metadata:
   name: prometheus-deployment
   labels:
-    app: prometheus-server
+    app: prometheus-deployment
+  namespace: monitoring
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: prometheus-server
+      app: prometheus-deployment
   template:
     metadata:
       labels:
-        app: prometheus-server
+        app: prometheus-deployment
     spec:
       containers:
-        - name: prometheus
+        - name: prometheus-container
           image: prom/prometheus
           args:
             - "--config.file=/etc/prometheus/prometheus.yml"
             - "--storage.tsdb.path=/prometheus/"
+            - "--web.enable-admin-api"
+            - "--web.external-url=http://alertmanager.example.com:32647"
+            - "--web.route-prefix=/"
           ports:
             - containerPort: 9090
           resources:
@@ -38,6 +42,6 @@ spec:
         - name: prometheus-config-volume
           configMap:
             defaultMode: 420
-            name: prometheus-server-conf
+            name: prometheus-configmap
         - name: prometheus-storage-volume
           emptyDir: {}
