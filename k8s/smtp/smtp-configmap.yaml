@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: smtp-configmap
+  labels:
+    name: smtp-configmap
+  namespace: monitoring
+type: Opaque
+data:
+  main.cf: 
+    

@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: smtp-deployment
+  labels:
+    app: smtp-deployment
+  namespace: monitoring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: smtp-deployment
+  template:
+    metadata:
+      labels:
+        app: smtp-deployment
+    spec:
+      containers:
+        - name: smtp-container
+          image: paulokinjo/smtp
+          ports:
+            - containerPort: 25
+          resources:
+            requests:
+              cpu: 300m
+              memory: 500Mi
+            limits:
+              cpu: 500m
+              memory: 1000Mi
+          # volumeMounts:
+          #   - name: smtp-config-volume
+          #     mountPath: /etc/postfix/
+      # volumes:
+      #   - name: smtp-config-volume
+      #     configMap:
+      #       defaultMode: 420
+      #       name: smtp-configmap
