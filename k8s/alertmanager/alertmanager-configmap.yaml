@@ -27,9 +27,9 @@ data:
             from: alertmanager@email.com
             smarthost: smtp.gmail.com:465
             require_tls: true
-            auth_username: "$GMAIL_ACCOUNT"
-            auth_identity: "$GMAIL_ACCOUNT"
-            auth_password: "$GMAIL_AUTH_TOKEN"
+            auth_username: "${GMAIL_ACCOUNT}"
+            auth_identity: "${GMAIL_ACCOUNT}"
+            auth_password: "${GMAIL_AUTH_TOKEN}"
       - name: slack_demo
         slack_configs:
         - api_url: https://hooks.slack.com/services/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sz4Qk
