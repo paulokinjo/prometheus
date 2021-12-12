@@ -10,7 +10,7 @@ spec:
       port:
         number: 9090
   rules:
-    - host: alertmanager.192.168.56.10.nip.io
+    - host: alertmanager.192.168.56.100.nip.io
       http:
         paths:
           - pathType: Prefix
@@ -21,7 +21,7 @@ spec:
                 port:
                   number: 9093
 
-    - host: prometheus.192.168.56.10.nip.io
+    - host: prometheus.192.168.56.100.nip.io
       http:
         paths:
           - pathType: Prefix
