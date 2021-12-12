@@ -27,13 +27,13 @@ spec:
           - name: GMAIL_ACCOUNT
             valueFrom:
               secretKeyRef:
-                name: smtp-secret
-                key: account
+                name: alertmanager-smtp-secret
+                key: user_account
           - name: GMAIL_AUTH_TOKEN
             valueFrom:
               secretKeyRef:
-                name: smtp-secret
-                key: secret
+                name: alertmanager-smtp-secret
+                key: secret_key
         resources:
             requests:
               cpu: 500m
