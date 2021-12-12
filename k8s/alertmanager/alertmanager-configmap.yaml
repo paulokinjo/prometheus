@@ -22,11 +22,11 @@ data:
     receivers:
       - name: alert-emailer
         email_configs:
-          - to: paulokinjo89@gmail.com
+          - to: "${GMAIL_ACCOUNT}"
             send_resolved: true
-            from: alertmanager@email.com
+            from: "${GMAIL_ACCOUNT}"
             smarthost: smtp.gmail.com:465
-            require_tls: true
+            require_tls: false
             auth_username: "${GMAIL_ACCOUNT}"
             auth_identity: "${GMAIL_ACCOUNT}"
             auth_password: "${GMAIL_AUTH_TOKEN}"

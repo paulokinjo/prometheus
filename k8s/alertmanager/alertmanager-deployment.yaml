@@ -16,20 +16,40 @@ spec:
       labels:
         app: alertmanager-deployment
     spec:
+      initContainers:
+      - args:
+        - sh
+        - -c
+        - cat /config.yml | envsubst > /etc/alertmanager/config.yml
+        image: bhgedigital/envsubst
+        name: envsubst
+        env:
+          - name: GMAIL_ACCOUNT
+            valueFrom:
+              secretKeyRef:
+                name: smtp-secret
+                key: account
+          - name: GMAIL_AUTH_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: smtp-secret
+                key: secret
+        resources:
+            requests:
+              cpu: 500m
+              memory: 500M
+            limits:
+              cpu: 1
+              memory: 1Gi
+        volumeMounts:
+          - mountPath: /etc/alertmanager
+            name: alertmanager-volume
+          - mountPath: /config.yml
+            subPath: config.yml
+            name: alertmanager-volume-configmap
       containers:
         - name: alertmanager-deployment
-          image: prom/alertmanager:v0.19.0
-          env:
-            - name: GMAIL_ACCOUNT
-              valueFrom:
-                secretKeyRef:
-                  name: smtp-secret
-                  key: account
-            - name: GMAIL_AUTH_TOKEN
-              valueFrom:
-                secretKeyRef:
-                  name: smtp-secret
-                  key: secret
+          image: prom/alertmanager:v0.19.0          
           args:
             - "--config.file=/etc/alertmanager/config.yml"
             - "--storage.path=/alertmanager"
@@ -43,19 +63,18 @@ spec:
             limits:
               cpu: 1
               memory: 1Gi
-          volumeMounts:
-            - name: config-volume
-              mountPath: /etc/alertmanager
-            - name: templates-volume
+          volumeMounts:            
+            - name: alertmanager-templates-volume
               mountPath: /etc/alertmanager-templates
-            - name: alertmanager
-              mountPath: /alertmanager
+            - name: alertmanager-volume
+              mountPath: /etc/alertmanager
       volumes:
-        - name: config-volume
+        - name: alertmanager-volume
+          emptyDir: {}
+        - name: alertmanager-volume-configmap
           configMap:
             name: alertmanager-configmap
-        - name: templates-volume
+        - name: alertmanager-templates-volume
           configMap:
-            name: alertmanager-templates
-        - name: alertmanager
-          emptyDir: {}
+            name: alertmanager-templates-configmap
+        

@@ -22,7 +22,7 @@ spec:
             - "--config.file=/etc/prometheus/prometheus.yml"
             - "--storage.tsdb.path=/prometheus/"
             - "--web.enable-admin-api"
-            - "--web.external-url=http://alertmanager.example.com:32647"
+            - "--web.external-url=http://prometheus.192.168.56.100:32647"
             - "--web.route-prefix=/"
           ports:
             - containerPort: 9090

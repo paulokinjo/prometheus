@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   creationTimestamp: null
-  name: alertmanager-templates
+  name: alertmanager-templates-configmap
   namespace: monitoring
 data:
   default.tmpl: |
