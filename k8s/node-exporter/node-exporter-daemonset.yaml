@@ -48,7 +48,7 @@ spec:
               mountPropagation: HostToContainer
       volumes:
         - hostPath:
-            path: /tmp/sys
+            path: /sys
           name: sys
         - hostPath:
             path: /
