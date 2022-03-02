@@ -41,8 +41,9 @@ spec:
             - mountPath: /host/sys
               name: sys
               readOnly: true
+              hostRootFsMount: false
             - mountPath: /host/root
-              mountPropagation: HostToContainer
+              hostRootFsMount: false
               name: root
               readOnly: true
       volumes:
