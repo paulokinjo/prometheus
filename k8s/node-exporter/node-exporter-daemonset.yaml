@@ -41,9 +41,11 @@ spec:
             - mountPath: /host/sys
               name: sys
               readOnly: true
+              mountPropagation: Bidirectional
             - mountPath: /host/root
               name: root
               readOnly: true
+              mountPropagation: Bidirectional
       volumes:
         - hostPath:
             path: /sys
